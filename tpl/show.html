@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>日志</title>
+  <link rel="stylesheet" href="/static/layui/css/layui.css" media="all">
+  <style>
+    body{margin: 10px;}
+    .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
+  </style>
+</head>
+<body>
+<form class="layui-form" action="">
+ <div class="layui-form-item">
+    <div class="layui-inline">
+      <label class="layui-form-label">请选择日期</label>
+      <div class="layui-input-inline">
+        <select name="logdata" lay-filter="logdata">
+		  {{logdata|safe}}
+        </select>
+      </div>
+	  <div class="layui-form-mid layui-word-aux">日志刷新时间</div>
+    </div>
+<table class="layui-hide" id="data" lay-filter="test"></table>
+ <form>
+<script type="text/html" id="romtool">
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="showdata">走势图</a>
+</script>
+
+<script src="/static/layui/layui.js"></script>
+<script>
+layui.config({
+
+});
+ 
+layui.use([ 'layer' ,'util', 'table' ,'form', 'jquery'], function(){
+  var layer = layui.layer //弹层
+  ,table = layui.table //表格
+  ,util = layui.util
+  ,form = layui.form
+  ,$ = layui.jquery;
+  var datalist = []
+  //执行一个 table 实例
+  table.on('tool(test)', function(obj){
+  console.log('showdata')
+    var data = obj.data
+    ,layEvent = obj.event;
+    if(layEvent === 'showdata'){
+		console.log('showdata')
+		layer.open({
+		  type: 2,
+		  shade: 0.3,
+		  area: ['1200px', '600px'],
+		  maxmin: true,
+		  content: "data?site="+data.site,
+		  zIndex: layer.zIndex,
+		  success: function(layero){
+			layer.setTop(layero);
+		  }
+		});     
+    }
+  });
+  
+  table.render({
+     elem: '#data'
+    ,data : datalist
+    ,title: '用户表'
+    ,cols: [[ //表头
+	  {field:'site', title: '站点域名', width: 165}
+	  ,{{fieldstr|safe}}
+	  ,{fixed: 'right', width: 80, align:'center', toolbar: '#romtool'}
+    ]]
+  });
+  getdata('0');
+  function getdata(logdata){
+	$.ajax({
+		  url: 'ajax?logdata='+logdata,
+		  async: true,
+		  type:"GET",
+		  dataType: "json",
+		  success: function(data){
+			datalist = data.data;
+			$(".layui-word-aux").text('日志刷新时间:'+data.time);
+			table.reload("data", {
+				data: datalist,
+			})
+		  }
+	});
+  }
+
+  
+  form.on('select(logdata)', function(data){
+		getdata(data.value);
+	});      
+});
+</script>
+</body>
+</html>        
+        

@@ -1,0 +1,88 @@
+{
+    "port":88,
+	"logpath":"/home/wwwlogs/",
+	"route":"mylog/",
+    "reload":1,
+    "uptime":5,
+    "spiders": [{
+        "id":"baidu",
+        "name": "百度",
+        "key": "Baiduspider/2.0;"
+    }, {
+        "id":"baiduxuanran",
+        "name": "百度渲染",
+        "key": "Baiduspider-render/2.0;"
+    }, {
+        "id":"haosou",
+        "name": "360好搜",
+        "key": "360Spider"
+    }, {
+        "id":"google",
+        "name": "谷歌",
+        "key": "Googlebot"
+    }, {
+        "id":"byte",
+        "name": "字节跳动",
+        "key": "Bytespider"
+    }, {
+        "id":"bing",
+        "name": "Bing",
+        "key": "bingbot"
+    }, {
+        "id":"sougou",
+        "name": "搜狗",
+        "key": "Sogou web spider"
+    }, {
+        "id":"shenma",
+        "name": "神马",
+        "key": "YisouSpider"
+    }, {
+        "id":"yandex",
+        "name": "Yandex",
+        "key": "YandexBot"
+    }, {
+        "id":"baidugao",
+        "name": "百度高权重",
+        "key": "220.181.108."
+    }, {
+        "id":"baidudi",
+        "name": "百度低权重",
+        "key": "123.125.71."
+    }, {
+        "id":"baidusha",
+        "name": "百度沙盒降权",
+        "key": ["123.125.68.","218.30.118.102","220.181.68."]
+    }, {
+        "id":"baiduyc",
+        "name": "百度网站异常",
+        "key": "203.208.60."
+    }, {
+        "id":"baiduxl",
+        "name": "百度巡逻",
+        "key": "210.72.225."
+    }, {
+        "id":"baiduxz",
+        "name": "百度新站考察",
+        "key": "121.14.89."
+    }, {
+        "id":"baidufk",
+        "name": "百度风控",
+        "key": "fengkong.baidu.com"
+    },  {
+        "id":"baidupg",
+        "name": "百度评估",
+        "key": "pinggu.baidu.com"
+    },  {
+        "id":"http404",
+        "name": "HTTP 404",
+        "key": ".html HTTP/1.1\" 404"
+    }, {
+        "id":"http504",
+        "name": "HTTP 504",
+        "key": ".html HTTP/1.1\" 504"
+    }, {
+        "id":"http500",
+        "name": "HTTP 500",
+        "key": ".html HTTP/1.1\" 500"
+    }]
+}

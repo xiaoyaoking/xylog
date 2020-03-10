@@ -1,0 +1,57 @@
+日志分析 
+by 职业菜鸟 2020/03/10 QQ:2252432154
+
+更新说明:
+同步获取修改为异步抓取,新增:uptime 参数,单位为分钟. 默认5分钟抓取一次日志.
+增加layui模板,水平有限,只放了表格.
+
+-----------------------------------------------------------------------------
+先 cd 到程序目录 比如: cd /root/xylog/
+自动安装:
+chmod +x install.sh && ./install.sh
+运行:
+chmod +x run.sh && ./run.sh
+
+-----------------------------------------------------------------------------
+手动安装:
+说明:
+机器需由 python2.7  以及 pip
+安装:
+apt-get install python2.7 python-pip 
+安装模块
+pip install Flask gevent 
+
+后台运行 (/root/py/ 替换为你自己的xyweblog.py存放目录)
+cd /root/py/ && nohup python xyweblog.py >/dev/null 2>&1 &
+
+访问: 默认路由是 show 可以自定义
+http://ip:端口/show
+例:http://127.0.0.1:88/show
+
+已知问题: 运行闪退 端口被占用
+运行: lsof -i:88  (88 修改为你的自定义端口)
+返回结果:
+COMMAND  PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
+python  6042 root    6u  IPv4 16262838      0t0  TCP *:88 (LISTEN)
+
+运行: (6042为进程id  替换为你的 PID 列的ID号)
+kill -9 6042
+
+-----------------------------------------------------------------------------
+logconfig.json 说明
+
+port 启动端口
+logpath 日志路径
+route 路由 (自定义访问路径)
+reload 访问重载配置
+spiders 自定义日志统计
+
+可自定义添加要统计的蜘蛛,
+,{
+"id":"baidu"
+"name": "百度蜘蛛",
+"key": "Baiduspider/2.0;"
+},
+name 为显示的名称  key 为 蜘蛛特征关键字 (越短越好)
+key 支持多个数据 "key": ["123.125.68.","218.30.118.102","220.181.68."]
+请遵循 json 格式 json格式化校验工具 https://www.sojson.com/ 

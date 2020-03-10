@@ -1,0 +1,1 @@
+nohup python xyweblog.py >/dev/null 2>&1 &
