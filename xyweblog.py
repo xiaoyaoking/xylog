@@ -93,6 +93,9 @@ def data():
         else:
             break
         datas_i += 1
+    datas.reverse()
+    for spider_i,spider_item in enumerate(spider_arr):
+        newdatalist[spider_i]['data'].reverse()
     context = {'site':site,'spiders':json.dumps(spiders),'datas':json.dumps(datas),'datalist':json.dumps(newdatalist)}
     return render_template('data.html',**context)
 @app.route('/'+xyconfig.get('route','show')+'ajax', methods=['GET','POST'])
