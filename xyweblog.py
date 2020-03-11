@@ -57,7 +57,7 @@ def show():
     logdata = ''
     fields = []
     for spider_item in spider_arr:
-        fields.append("{field:'"+spider_item.get('id','')+"', title: '"+spider_item.get('name','')+"',width:100}")
+        fields.append("{field:'"+spider_item.get('id','')+"', title: '"+spider_item.get('name','')+"',width:100, sort: true}")
     fieldstr = ','.join(fields)
     jsonlist = os.listdir('json/')
     jsonlist.sort(reverse=True)
