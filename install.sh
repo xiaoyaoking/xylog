@@ -1,3 +1,3 @@
 apt-get install -y python python-pip zip unzip
-pip install Flask gevent
-nohup python xyweblog.py >/dev/null 2>&1 &
+pip install Flask gevent requests
+nohup python xylog.py >/dev/null 2>&1 &
