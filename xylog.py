@@ -29,7 +29,7 @@ app.config.update(DEBUG=True)
 def log(message=''):
     _print = True
     logpath = 'log'
-    nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在
+    nowTime = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')  # 现在时间
     logfile = logpath +"/"+ datetime.datetime.now().strftime('%Y-%m-%d')
     txt = '%(asctime)s -: %(message)s\n' % {'asctime': nowTime,'message': message}
     if _print:
