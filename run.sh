@@ -1,1 +1,1 @@
-nohup python xyweblog.py >/dev/null 2>&1 &
+nohup python xylog.py >/dev/null 2>&1 &
