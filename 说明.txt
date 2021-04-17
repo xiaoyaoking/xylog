@@ -1,57 +1,62 @@
-��־���� 
-by ְҵ���� 2020/03/10 QQ:2252432154
+日志分析 
+by 职业菜鸟 2021/04/17 QQ:2252432154
 
-����˵��:
-ͬ����ȡ�޸�Ϊ�첽ץȡ,����:uptime ����,��λΪ����. Ĭ��5����ץȡһ����־.
-����layuiģ��,ˮƽ����,ֻ���˱���.
+更新说明:
+同步获取修改为异步抓取,新增:uptime 参数,单位为分钟. 默认5分钟抓取一次日志.
+增加layui模板,水平有限,只放了表格.
 
 -----------------------------------------------------------------------------
-�� cd ������Ŀ¼ ����: cd /root/xylog/
-�Զ���װ:
+先 cd 到程序目录 比如: cd /root/xylog/
+自动安装:
 chmod +x install.sh && ./install.sh
-����:
+运行:
 chmod +x run.sh && ./run.sh
 
 -----------------------------------------------------------------------------
-�ֶ���װ:
-˵��:
-�������� python2.7  �Լ� pip
-��װ:
+手动安装:
+说明:
+机器需由 python2.7  以及 pip
+安装:
 apt-get install python2.7 python-pip 
-��װģ��
-pip install Flask gevent 
+安装模块
+pip install Flask gevent requests
 
-��̨���� (/root/py/ �滻Ϊ���Լ���xyweblog.py���Ŀ¼)
-cd /root/py/ && nohup python xyweblog.py >/dev/null 2>&1 &
+后台运行 (/root/py/ 替换为你自己的xyweblog.py存放目录)
+cd /root/py/ && nohup python xylog.py >/dev/null 2>&1 &
 
-����: Ĭ��·���� show �����Զ���
-http://ip:�˿�/show
-��:http://127.0.0.1:88/show
+访问: 默认路由是 xylog 可以自定义
+http://ip:端口/xylog
+例:http://127.0.0.1:88/xylog
 
-��֪����: �������� �˿ڱ�ռ��
-����: lsof -i:88  (88 �޸�Ϊ����Զ���˿�)
-���ؽ��:
+已知问题: 运行闪退 端口被占用
+运行: lsof -i:88  (88 修改为你的自定义端口)
+返回结果:
 COMMAND  PID USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
 python  6042 root    6u  IPv4 16262838      0t0  TCP *:88 (LISTEN)
 
-����: (6042Ϊ����id  �滻Ϊ��� PID �е�ID��)
+运行: (6042为进程id  替换为你的 PID 列的ID号)
 kill -9 6042
 
 -----------------------------------------------------------------------------
-logconfig.json ˵��
+xylog.json 配置文件说明
 
-port �����˿�
-logpath ��־·��
-route ·�� (�Զ������·��)
-reload ������������
-spiders �Զ�����־ͳ��
+"port":8181,                                    启动端口
+"type":3,                                       启动类型 1 主端 web服务器（展示用）2.从端 日志服务器（获取数据）3.单机模式
+"apiurl":"http://127.0.0.1:8181/xylog",         主服务器api接口url
+"logpath":"/home/wwwlogs",                      日志路径
+"loglist":["dbtest.baidu.com","ff.baidu.com"],  需要处理得日志列表
+"route":"xylog",                                路由 (自定义访问路径)
+"reload":1,                                     访问重载配置
+"uptime":5,                                     日志抓取时间 单位分钟
+"cutlogcmd":"nginx -s reload",                  自动切割日志后需要执行得命令行
+"spiders": [{}]                                 自定义日志统计
 
-���Զ�������Ҫͳ�Ƶ�֩��,
+可自定义添加要统计的蜘蛛,
 ,{
 "id":"baidu"
-"name": "�ٶ�֩��",
+"name": "百度蜘蛛",
 "key": "Baiduspider/2.0;"
 },
-name Ϊ��ʾ������  key Ϊ ֩�������ؼ��� (Խ��Խ��)
-key ֧�ֶ������ "key": ["123.125.68.","218.30.118.102","220.181.68."]
-����ѭ json ��ʽ json��ʽ��У�鹤�� https://www.sojson.com/ 
+name 为显示的名称  key 为 蜘蛛特征关键字 (越短越好)
+key 支持多个数据 "key": ["123.125.68.","218.30.118.102","220.181.68."]
+请遵循 json 格式 json格式化校验工具 https://www.sojson.com/ 
